@@ -19,4 +19,4 @@ EMAIL_RECIPIENT = os.environ.get('EMAIL_RECIPIENT')
 
 def send_email():
     logger.info(f"Email is sent from {EMAIL_SENDER} to {EMAIL_RECIPIENT}")
-    
+    return EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_RECIPIENT
