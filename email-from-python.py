@@ -8,16 +8,22 @@ Created on Mon Jan 11 21:31:11 2021
 
 # %% required libraries
 import os
-import logging
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
-logger = logging.getLogger(__name__)
+import smtplib
+from email.message import EmailMessage
 
 # %% get email and password from environment variables
 EMAIL_SENDER= os.environ.get('EMAIL_SENDER')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_RECIPIENT = os.environ.get('EMAIL_RECIPIENT')
 
-def send_email():
-    logger.info(f"Email is sent from {EMAIL_SENDER} to {EMAIL_RECIPIENT}")
-    print(EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_RECIPIENT)
-    return EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_RECIPIENT
+# %% set up email content
+msg = EmailMessage()
+msg['Subject'] = 'Email from Python'
+msg['From'] = EMAIL_SENDER
+msg['To'] = EMAIL_RECIPIENT
+msg.set_content('Hi! This is email is being sent automatically from Python running on GitHub Actions.')
+
+# send email
+with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+    smtp.login(EMAIL_SENDER, EMAIL_PASSWORD)
+    smtp.send_message(msg)
