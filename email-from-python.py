@@ -21,7 +21,7 @@ msg = EmailMessage()
 msg['Subject'] = 'Email from Python'
 msg['From'] = EMAIL_SENDER
 msg['To'] = EMAIL_RECIPIENT
-msg.set_content('Hi! This is email is being sent automatically from Python running on GitHub Actions.')
+msg.set_content('Hi! This is email is being sent automatically from Python running on GitHub Actions. ')
 
 # send email
 with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
